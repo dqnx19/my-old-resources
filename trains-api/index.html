@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+        <div id="output"></div>
+
+        <script>
+            function getTrain(train_number) {
+                fetch(`http://localhost:3000/gettrain/${train_number}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("output").innerHTML = `
+                            <table border="1" style="border-collapse: collapse; width: 300px;">
+                                <tr><th>Type</th><td>${data.type}</td></tr>
+                                <tr><th>Train number</th><td>${data.number}</td></tr>
+                                <tr><th>Line</th><td>${data.line}</td></tr>
+                                <tr><th>From</th><td>${data.from}</td></tr>
+                                <tr><th>To</th><td>${data.to}</td></tr>
+                            </table>
+            `;
+                    })
+                    .catch(error => {
+                        document.getElementById("output").innerHTML = "Chyba: " + error;
+                    });
+            }
+
+            function loadTrainList() {
+    fetch(`http://localhost:3000/gettrains`)
+        .then(response => response.json())
+        .then(data => {
+            let html = `
+                <table border="1" style="border-collapse: collapse; width: 500px;">
+                    <tr>
+                        <th>Type</th>
+                        <th>Number</th>
+                        <th>Line</th>
+                        <th>From</th>
+                        <th>To</th>
+                    </tr>
+            `;
+
+            data.forEach(train => {
+                html += `
+                    <tr>
+                        <td>${train.type}</td>
+                        <td>${train.number}</td>
+                        <td>${train.line}</td>
+                        <td>${train.from}</td>
+                        <td>${train.to}</td>
+                    </tr>
+                `;
+            });
+
+            html += "</table>";
+            document.getElementById("output").innerHTML = html;
+        })
+        .catch(error => {
+            document.getElementById("output").innerHTML = "Chyba: " + error;
+        });
+}
+
+
+            loadTrainList()
+        </script>
+
+    </body>
+
+</html>

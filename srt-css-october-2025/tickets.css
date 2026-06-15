@@ -1,0 +1,59 @@
+
+            .qr-code {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 10px;
+                background-color: white;
+                width: 250px;
+                height: 250px;
+            }
+            .qr-code img {
+                width: 200px;
+                height: 200px;
+            }
+
+            @media (max-width: 600px) {
+                .qr-code {
+                    width: 100%;
+                    height: auto;
+                    padding: 25px;
+                    box-sizing: border-box;
+                    background-color: white;
+                }
+                .qr-code img {
+                    width: 100%;
+                    height: auto;
+                    max-width: 200px;
+                    max-height: 200px;
+                }
+            }
+
+            /* overlay + spinner styles (blue) - overlay blocks interaction and visually covers the div */
+            .es-spinner-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: auto;                 /* block underlying interactions */
+                background: rgba(0,0,0,0.28);         /* semi-transparent overlay */
+                z-index: 9999;                        /* sit above content */
+                border-radius: inherit;               /* match container rounding if any */
+            }
+            /* unified larger spinner for login/account/buy, centered inside overlay */
+            .es-spinner, .es-account-spinner, .es-buy-spinner {
+                width: 72px;
+                height: 72px;
+                border: 8px solid rgba(255,255,255,0.25);
+                border-top-color: #007bff; /* blue */
+                border-radius: 50%;
+                animation: es-spin 0.9s linear infinite;
+                background: transparent;
+                /* centered by overlay flexbox */
+            }
+            @keyframes es-spin { to { transform: rotate(360deg); } }
+        
